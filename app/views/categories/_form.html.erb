@@ -1,0 +1,6 @@
+<%= form_with model: category do |form| %>
+  <div class="mb-10px">
+    <%= form.text_field :name, placeholder: "Название", class: "w-100" %>
+  </div>
+  <%= form.submit "Сохранить", class: "w-100" %>
+<% end %>

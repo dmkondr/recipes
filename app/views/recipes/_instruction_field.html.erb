@@ -1,0 +1,4 @@
+<div class="nested-form mb-2 p-2 border-dashed border rounded-xl border-cyan-800">
+  <%= text_area_tag "recipe[instructions][]", instruction, class: "w-full rounded-xl border-cyan-800 resize-none" %>
+  <button type="button" class="w-full rounded-xl bg-red-800 text-white font-bold h-9" data-action="nested-form#remove">Убрать</button>
+</div>

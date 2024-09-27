@@ -1,0 +1,8 @@
+ru:
+   activerecord:
+    errors:
+      messages:
+        blank: не может быть пустым
+    attributes:
+      recipe:
+        name: Название

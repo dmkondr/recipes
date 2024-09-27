@@ -1,0 +1,35 @@
+<div class="mb-2 text-center">
+  <%= recipe.new_record? ? "Создание рецепта" : "Редактирование рецепта" %>
+</div>
+<%= form_with model: recipe do |form| %>
+  <div class="mb-2">
+    <%= form.text_field :name, placeholder: "Название", class: "w-full rounded-xl border-cyan-800 h-9" %>
+  </div>
+  <div class="mb-2 p-2 border-dashed border rounded-xl border-cyan-800">
+    <div class="mb-2">Категории:</div>
+    <%= form.collection_select :category_id, Category.order(:name), :id, :name, {}, multiple: true, class: "rounded-xl border border-cyan-800 bg-white text-sm w-full" %>
+  </div>
+  <div class="mb-2 p-2 border-dashed border rounded-xl border-cyan-800" data-controller="nested-form">
+    <div class="mb-2">Ингредиенты:</div>
+    <template>
+      <%= form.fields_for :ingredients, Recipe::Ingredient.new, child_index: "NEW_RECORD" do |fields| %>
+        <%= render "recipes/ingredients/form", form: fields %>
+      <% end %>
+    </template>
+    <%= form.fields_for :ingredients do |fields| %>
+      <%= render "recipes/ingredients/form", form: fields %>
+    <% end %>
+    <button type="button" class="w-full rounded-xl bg-cyan-800 text-white font-bold h-9" data-action="nested-form#add">Добавить ингредиент</button>
+  </div>
+  <div class="mb-2 p-2 border-dashed border rounded-xl border-cyan-800" data-controller="nested-form">
+    <div class="mb-2">Шаги:</div>
+    <template>
+      <%= render "instruction_field", instruction: nil %>
+    </template>
+    <% recipe.instructions.each do |instruction| %>
+      <%= render "instruction_field", instruction: instruction %>
+    <% end %>
+    <button type="button", class="w-full rounded-xl bg-cyan-800 text-white font-bold h-9", data-action="nested-form#add">Добавить шаг</button>
+  </div>
+  <%= form.button "Сохранить", class: "w-full rounded-xl bg-cyan-800 text-white font-bold h-9" %>
+<% end %>
